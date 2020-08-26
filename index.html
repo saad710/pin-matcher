@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input id="generate-value" class="form-control" type="text">
+                    <button id="pin-generate" class="generate-btn">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input id="pin-value" class="form-control" type="text" maxlength="4">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+                                <div onclick="allBtnId('seven')" id="seven" class="button">7</div>
+                                <div onclick="allBtnId('eight')" id="eight" class="button">8</div>
+                                <div onclick="allBtnId('nine')" id="nine" class="button">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div onclick="allBtnId('four')" id="four" class="button">4</div>
+                                <div onclick="allBtnId('five')" id="five" class="button">5</div>
+                                <div onclick="allBtnId('six')" id="six" class="button">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div onclick="allBtnId('one')" id="one" class="button">1</div>
+                                <div onclick="allBtnId('two')" id="two" class="button">2</div>
+                                <div onclick="allBtnId('three')" id="three" class="button">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div onclick="allBtnId('backspace')" class="button">< </div>
+                                   
+
+                                <div onclick="allBtnId('zero')" class="button">0</div>
+                                <div onclick="allBtnId('delete')" class="button">C</div>
+                                </div>
+                                <div>
+                                    <button id="btnSubmit" type="submit" class="submit-btn">Submit</button>
+                                    <p id="tryLeft" class="action-left">3 try left</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notify-section">
+                    <p id="missmatch" class="notify">❌ Pin Didn't Match, Please try again</p>
+                    <p id="match" class="notify">✅ Pin Matched... Secret door is opening for you</p>
+                    <p id="empty" class="notify">Please genearte a pin</p>
+                </div>
+            </div>
+            <script>
+
+                const pinGenerate = document.getElementById("pin-generate");
+                pinGenerate.addEventListener("click", function () {
+
+                    const randomNumber = Math.random() * 9000 + 1000;
+                    const randomNumberRound = Math.floor(randomNumber);
+
+                    document.getElementById("generate-value").value = randomNumberRound;
+
+
+                });
+
+                function allBtnId(buttonNumber) {
+
+
+
+                    if (buttonNumber == 'one') {
+
+                        document.getElementById("pin-value").value += 1;
+                    }
+
+                    if (buttonNumber == 'two') {
+
+                        document.getElementById("pin-value").value += 2;
+
+                    }
+
+                    if (buttonNumber == 'three') {
+
+                        document.getElementById("pin-value").value += 3;
+                    }
+
+
+                    if (buttonNumber == 'four') {
+
+                        document.getElementById("pin-value").value += 4;
+                    }
+
+
+                    if (buttonNumber == 'five') {
+
+                        document.getElementById("pin-value").value += 5;
+                    }
+
+
+                    if (buttonNumber == 'six') {
+
+                        document.getElementById("pin-value").value += 6;
+                    }
+
+
+                    if (buttonNumber == 'seven') {
+
+                        document.getElementById("pin-value").value += 7;
+                    }
+
+
+                    if (buttonNumber == 'eight') {
+
+                        document.getElementById("pin-value").value += 8;
+                    }
+
+
+                    if (buttonNumber == 'nine') {
+
+                        document.getElementById("pin-value").value += 9;
+
+                    }
+
+
+                    if (buttonNumber == 'zero') {
+
+                        document.getElementById("pin-value").value += 0;
+
+                    }
+
+
+                    if (buttonNumber == 'delete') {
+
+                        document.getElementById("pin-value").value = '';
+                    }
+                     
+                     
+                    if (buttonNumber == 'backspace') {
+                        let screen = document.getElementById("pin-value").value ;
+                        let backSpace = screen.slice(0, screen.length -1);
+                        
+                        document.getElementById("pin-value").value = backSpace;
+                    }
+
+
+                }
+
+                const btnSubmit = document.getElementById("btnSubmit");
+                btnSubmit.addEventListener("click",function(){
+
+                var generatePin = document.getElementById("generate-value").value;
+                var inputPin = document.getElementById("pin-value").value;
+
+                if(generatePin == inputPin && generatePin != "" && inputPin != ""){
+
+                     let missMatch = document.getElementById("missmatch");
+                     missMatch.style.display = "none";
+                     let match = document.getElementById("match");
+                     match.style.display = "block";
+
+                     let tryLeft = document.getElementById("tryLeft");
+                     tryLeft.style.display = "none";
+
+                     document.getElementById("generate-value").value = "";
+                     document.getElementById("pin-value").value = "";
+
+
+                }
+
+                if(generatePin != inputPin && generatePin != "" && inputPin != ""){
+
+                 let missMatch = document.getElementById("missmatch");
+                 missMatch.style.display = "block";
+                 let match = document.getElementById("match");
+                 match.style.display = "none";
+
+                 let tryLeft = document.getElementById("tryLeft");
+                 tryLeft.style.display = "block";
+
+                 document.getElementById("generate-value").value = "";
+                 document.getElementById("pin-value").value = "";
+
+
+                }
+
+                if(generatePin == "" && inputPin == ""){
+                 
+
+                 let emptyPin = document.getElementById("empty");
+                 emptyPin.style.display = "block";
+
+                }
+
+               
+
+
+                });
+                
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </script>
+</body>
+
+</html>
